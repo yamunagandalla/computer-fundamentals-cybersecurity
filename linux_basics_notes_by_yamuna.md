@@ -1,4 +1,4 @@
-# 🐧 Linux Basic Commands – Notes by Yamuna
+# 🐧 Linux Basic Commands – Notes by Yamuna Gandalla
 
 These are beginner-friendly notes to understand and use basic Linux commands. Perfect for anyone starting out with the terminal!
 
@@ -114,4 +114,4 @@ source   # Reload .bashrc
 
 ---
 
-Created by **Yamuna** – beginner but serious about learning Linux! 
+Created by **Yamuna Gandalla** – beginner but serious about learning Linux! 
