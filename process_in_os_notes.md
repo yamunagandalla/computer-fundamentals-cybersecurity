@@ -1,42 +1,57 @@
-PROCESS IN OPERATING SYSTEM – NOTES
-1. WHAT IS PROCESS IN OPERATING SYSTEM?
+# Operating System: Processes for Cybersecurity
+This repository contains beginner-friendly notes on **Processes in Operating Systems**, specially focused on cybersecurity learners.  
+Understanding processes is fundamental for ethical hacking, malware analysis, and system security.
 
-A process is a program in execution. For example, when we write a program in C or C++ and compile it, the compiler creates binary code. The original code and binary code are both programs. When we actually run the binary code, it becomes a process.
+## Table of Contents
+1. [What is a Process?](#what-is-a-process)
+2. [How a Program Becomes a Process](#how-a-program-becomes-a-process)
+3. [Process States](#process-states)
+4. [Context Switching](#context-switching)
+5. [Parent & Child Processes](#parent--child-processes)
+6. [Process Scheduling Basics](#process-scheduling-basics)
+7. [Linux Commands for Process Investigation](#linux-commands-for-process-investigation)
+8. [Next Steps](#next-steps)
+9. [License](#license)
+10. [Author](#author)
 
-A process is an active entity instead of a program, which is considered a passive entity.
-A single program can create many processes when run multiple times; for example, when we open a .exe or binary file multiple times, multiple instances begin (multiple processes are created).
+---
 
-2. How a Program Becomes a Process?
+## 1. What is a Process?
+A **process** is a program in execution.  
 
-i) Writing the Program
-First, you write some code (C, Python, Java, anything).
-This code is saved as a file in your hard disk (storage).
-At this stage, it’s just dead code — it’s not doing anything.
-We call it a program.
+- A program is just a set of instructions stored on disk.  
+- When executed, it becomes an active entity called a **process**.  
+- A single program can create multiple processes if run multiple times (e.g., opening a `.exe` file multiple times).
 
-ii) Request to Run the Program
-When you want to run it, you click Run or type a command in the terminal.
-You’re basically telling the Operating System (OS):
-"Hey, please run this code for me."
+**Cybersecurity relevance:** Attackers often manipulate or monitor processes to hide malware or maintain persistence.
 
-iii) Loading into RAM
-The OS copies the executable from the hard disk into RAM (primary memory).
-This is because the CPU can only execute instructions from RAM, not directly from the disk.
+---
 
-iv) Creating a Process Control Block (PCB)
-The OS creates a PCB (Process Control Block) — a data structure that stores:
+## 2. How a Program Becomes a Process
 
-Process ID (PID)
+### i) Writing the Program
+- Code is written in languages like C, Python, Java.  
+- Saved as a file on the hard disk.  
+- At this stage, it is just a program, not active.
 
-Program counter (address of the next instruction)
+### ii) Request to Run
+- User asks the OS to execute the program.  
+- OS copies the executable into RAM for CPU execution.
 
-CPU registers
+### iii) Loading into RAM
+- CPU can execute instructions only from RAM, so the OS loads the program there.
 
-Memory locations used
+### iv) Creating a Process Control Block (PCB)
+The **PCB** is a data structure that stores:
 
-State (Ready, Running, etc.)
+- **Process ID (PID)** – Unique number for the process  
+- **Program Counter (PC)** – Address of the next instruction  
+- **CPU Registers** – Temporary storage for variables during execution  
+- **Memory Locations Used** – Code, data, stack segments  
+- **State** – Ready, Running, Waiting, Terminated
 
-v) Example Code
+### v) Example Code
+```c
 #include <stdio.h>
 int main() {
     int a = 5, b = 3;
@@ -44,56 +59,64 @@ int main() {
     printf("Sum = %d\n", sum);
     return 0;
 }
+Cybersecurity relevance: Understanding PCB structure helps detect malicious processes and analyze malware behavior.
 
+3. Process States
 
-a) When OS creates the PCB:
-
-Process ID (PID) – Unique number given by the OS when the process starts.
-
-Program Counter (PC) – Holds the address of the next instruction.
-
-CPU Registers – Temporary storage for variables during execution.
-
-Memory Locations Used – Code, Data, Stack segments.
-
-State – Ready, Running, Waiting, Terminated.
-
-Extra Cybersecurity-Relevant Additions
-
-3. Process States Diagram
+Typical states a process goes through:
 
 New → Ready → Running → Waiting → Ready → Terminated
 
 
-Helps in detecting suspicious behavior like malware staying in “waiting” to avoid detection.
+Cybersecurity relevance: Malware may stay in “waiting” or “ready” states to evade detection.
 
 4. Context Switching
-When switching between processes, the OS saves the current process’s PCB and loads another’s.
-Attackers may exploit poorly managed context switches to gain higher privileges.
+
+OS switches between processes by saving and loading PCBs.
+
+Poorly managed context switches can be exploited to escalate privileges.
 
 5. Parent & Child Processes
+
 Every process is created by another process (parent).
+
 Example in Linux:
 
 ps -ef --forest
 
 
-Malware often spawns hidden child processes to run in the background.
+Cybersecurity relevance: Malware may spawn hidden child processes to run in the background.
 
 6. Process Scheduling Basics
-The OS decides which process runs using algorithms like Round Robin or Priority Scheduling.
-In cyber attacks, processes can abuse high priority to consume resources (DoS).
+
+OS decides which process runs using algorithms like Round Robin or Priority Scheduling.
+
+Attackers can abuse high-priority processes to consume system resources (DoS attacks).
 
 7. Linux Commands for Process Investigation
+Command	Purpose
+ps aux	List all processes
+top / htop	Monitor processes in real-time
+pidof <name>	Find process ID
+kill <PID>	Terminate a process
+lsof -p <PID>	View files used by a process
+strace -p <PID>	Trace system calls of a process
+Next Steps
 
-ps aux → List all processes.
+Once comfortable with processes, explore:
 
-top / htop → Monitor processes in real-time.
+System calls and kernel interactions
 
-pidof <name> → Find process ID.
+Process security and malware detection
 
-kill <PID> → Terminate a process.
+Linux process management tools like htop, lsof, strace
 
-lsof -p <PID> → View files used by a process.
+Threading and multithreading concepts
 
-strace -p <PID> → Trace system calls of a process.
+License
+
+This content is open-source and free to use under the MIT License.
+
+Author
+
+Created by Yamuna Gandalla – a beginner in cybersecurity with a mission to learn and share.
